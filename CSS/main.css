@@ -141,8 +141,13 @@ table .btn-danger {
 }
 
 @media screen and (max-width: 600px) {
-  .popup {
+  .bookmark-content p {
+    font-size: calc(.7rem + 3vw);
+  }
+    .popup {
     max-width: 250px !important;
     padding: 10px;
   }
+
+
 }
