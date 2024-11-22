@@ -9,16 +9,16 @@ bookmarkerList = [];
 if (localStorage.getItem("BookmarkerContainer") !== null) {
   bookmarkerList = JSON.parse(localStorage.getItem("BookmarkerContainer"));
 }
-
 displayBookmarker();
 
+
+// Function To Add 
 function addBookmarker() {
   if (validationSiteName() && validationSiteUrl()) {
     var bookMarker = {
       name: bookmarkNameInput.value,
       url: bookmarkUrlInput.value,
     };
-
     bookmarkerList.push(bookMarker);
     localStorage.setItem("BookmarkerContainer", JSON.stringify(bookmarkerList));
     displayBookmarker();
@@ -26,11 +26,14 @@ function addBookmarker() {
   }
 }
 
+// Function To Clear
 function clearBookmarker() {
   bookmarkNameInput.value = null;
   bookmarkUrlInput.value = null;
 }
 
+
+// Function To Display
 function displayBookmarker() {
   var bookmarkerTable = "";
 
@@ -58,13 +61,16 @@ function displayBookmarker() {
   document.getElementById("tBodyContent").innerHTML = bookmarkerTable;
 }
 
+
+// Function To Delete
 function deleteBookmarker(index) {
   bookmarkerList.splice(index, 1);
-
   localStorage.setItem("BookmarkerContainer", JSON.stringify(bookmarkerList));
   displayBookmarker();
 }
 
+
+// Function To Validation SiteName
 function validationSiteName() {
   var regex =
     /^[a-zA-Z]{3,}([-_][a-zA-Z]{3,})*(\s[a-zA-Z]{3,}([-_][a-zA-Z]{3,})*)?$/;
@@ -75,18 +81,18 @@ function validationSiteName() {
     bookmarkNameInput.classList.remove("invalid-input");
     bookmarkNameInput.classList.add("is-valid");
     bookmarkNameInput.classList.remove("is-invalid");
-
     return true;
+    
   } else {
     bookmarkNameInput.classList.add("invalid-input");
     bookmarkNameInput.classList.remove("valid-input");
     bookmarkNameInput.classList.add("is-invalid");
     bookmarkNameInput.classList.remove("is-valid");
-
     return false;
   }
 }
 
+// Function To Validation SiteUrl
 function validationSiteUrl() {
   var regex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
   var text = bookmarkUrlInput.value;
@@ -96,14 +102,13 @@ function validationSiteUrl() {
     bookmarkUrlInput.classList.remove("invalid-input");
     bookmarkUrlInput.classList.add("is-valid");
     bookmarkUrlInput.classList.remove("is-invalid");
-
     return true;
+
   } else {
     bookmarkUrlInput.classList.add("invalid-input");
     bookmarkUrlInput.classList.remove("valid-input");
     bookmarkUrlInput.classList.add("is-invalid");
     bookmarkUrlInput.classList.remove("is-valid");
-
     return false;
   }
 }
