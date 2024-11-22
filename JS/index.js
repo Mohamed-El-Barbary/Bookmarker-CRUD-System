@@ -82,7 +82,7 @@ function validationSiteName() {
     bookmarkNameInput.classList.add("is-valid");
     bookmarkNameInput.classList.remove("is-invalid");
     return true;
-    
+
   } else {
     bookmarkNameInput.classList.add("invalid-input");
     bookmarkNameInput.classList.remove("valid-input");
@@ -133,24 +133,16 @@ closePopup.addEventListener("click", () => {
   hidePopup();
 });
 
-// Add event listener to the Submit button For validationSiteName
 document.getElementById("submitInfo").addEventListener("click", (e) => {
   e.preventDefault(); // Prevent form submission
 
   const isNameValid = validationSiteName(); // Validate the site name
+  const isUrlValid = validationSiteUrl(); // Validate the URL
 
-  if (!isNameValid) {
-    showPopup(); // Show popup if the site name is invalid
-  }
-});
-
-// Add event listener to the submit button For validationSiteUrl
-document.getElementById("submitInfo").addEventListener("click", (e) => {
-  e.preventDefault(); // Prevent form submission
-
-  const isUrlValid = validationSiteUrl(); // Validate the site name
-
-  if (!isUrlValid) {
-    showPopup(); // Show popup if the site name is invalid
+  // Only show the popup if any input is invalid
+  if (!isNameValid || !isUrlValid) {
+    showPopup(); // Show popup if either the site name or URL is invalid
+  } else {
+    addBookmarker(); // Proceed with adding the bookmark if both are valid
   }
 });

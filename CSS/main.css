@@ -139,3 +139,10 @@ table .btn-danger {
 .hidden {
   display: none;
 }
+
+@media screen and (max-width: 600px) {
+  .popup {
+    max-width: 250px !important;
+    padding: 10px;
+  }
+}
