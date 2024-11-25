@@ -11,10 +11,12 @@ if (localStorage.getItem("BookmarkerContainer") !== null) {
 }
 displayBookmarker();
 
-
-// Function To Add 
+// Function To Add
 function addBookmarker() {
-  if (validationSiteName() && validationSiteUrl()) {
+  if (
+    validationInputs(bookmarkNameInput) &&
+    validationInputs(bookmarkUrlInput)
+  ) {
     var bookMarker = {
       name: bookmarkNameInput.value,
       url: bookmarkUrlInput.value,
@@ -22,7 +24,7 @@ function addBookmarker() {
     bookmarkerList.push(bookMarker);
     localStorage.setItem("BookmarkerContainer", JSON.stringify(bookmarkerList));
     displayBookmarker();
-      clearBookmarker();
+    clearBookmarker();
   }
 }
 
@@ -30,8 +32,10 @@ function addBookmarker() {
 function clearBookmarker() {
   bookmarkNameInput.value = null;
   bookmarkUrlInput.value = null;
-}
 
+  bookmarkNameInput.classList.remove("valid-input");
+  bookmarkUrlInput.classList.remove("valid-input");
+}
 
 // Function To Display
 function displayBookmarker() {
@@ -61,7 +65,6 @@ function displayBookmarker() {
   document.getElementById("tBodyContent").innerHTML = bookmarkerTable;
 }
 
-
 // Function To Delete
 function deleteBookmarker(index) {
   bookmarkerList.splice(index, 1);
@@ -70,48 +73,31 @@ function deleteBookmarker(index) {
 }
 
 
-// Function To Validation SiteName
-function validationSiteName() {
-  var regex =
-    /^[a-zA-Z]{3,}([-_][a-zA-Z]{3,})*(\s[a-zA-Z]{3,}([-_][a-zA-Z]{3,})*)?$/;
-  var text = bookmarkNameInput.value;
+// Validation Inputs
 
-  if (regex.test(text)) {
-    bookmarkNameInput.classList.add("valid-input");
-    bookmarkNameInput.classList.remove("invalid-input");
-    bookmarkNameInput.classList.add("is-valid");
-    bookmarkNameInput.classList.remove("is-invalid");
+function validationInputs(element) {
+  var regex = {
+    bookmarkName:
+      /^[a-zA-Z0-9]{3,}([-_][a-zA-Z0-9]{3,})*(\s[a-zA-Z0-9]{3,}([-_][a-zA-Z0-9]{3,})*)?$/,
+    bookmarkUrl: /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/,
+  };
+  var text = element.value;
+
+  if (regex[element.id].test(text)) {
+    element.classList.add("valid-input");
+    element.classList.remove("invalid-input");
+    element.classList.add("is-valid");
+    element.classList.remove("is-invalid");
     return true;
-
   } else {
-    bookmarkNameInput.classList.add("invalid-input");
-    bookmarkNameInput.classList.remove("valid-input");
-    bookmarkNameInput.classList.add("is-invalid");
-    bookmarkNameInput.classList.remove("is-valid");
+    element.classList.add("invalid-input");
+    element.classList.remove("valid-input");
+    element.classList.add("is-invalid");
+    element.classList.remove("is-valid");
     return false;
   }
 }
 
-// Function To Validation SiteUrl
-function validationSiteUrl() {
-  var regex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
-  var text = bookmarkUrlInput.value;
-
-  if (regex.test(text)) {
-    bookmarkUrlInput.classList.add("valid-input");
-    bookmarkUrlInput.classList.remove("invalid-input");
-    bookmarkUrlInput.classList.add("is-valid");
-    bookmarkUrlInput.classList.remove("is-invalid");
-    return true;
-
-  } else {
-    bookmarkUrlInput.classList.add("invalid-input");
-    bookmarkUrlInput.classList.remove("valid-input");
-    bookmarkUrlInput.classList.add("is-invalid");
-    bookmarkUrlInput.classList.remove("is-valid");
-    return false;
-  }
-}
 
 //^ Popup Validation
 
@@ -119,6 +105,7 @@ var popup = document.getElementById("validationPopup");
 var closePopup = document.getElementById("closePopup"); // Input field for URL validation
 
 // Function to show the popup
+
 function showPopup() {
   popup.classList.remove("hidden");
 }
@@ -136,8 +123,8 @@ closePopup.addEventListener("click", () => {
 document.getElementById("submitInfo").addEventListener("click", (e) => {
   e.preventDefault(); // Prevent form submission
 
-  const isNameValid = validationSiteName(); // Validate the site name
-  const isUrlValid = validationSiteUrl(); // Validate the URL
+  const isNameValid = validationInputs(bookmarkNameInput); // Validate the site name
+  const isUrlValid = validationInputs(bookmarkUrlInput); // Validate the URL
 
   // Only show the popup if any input is invalid
   if (!isNameValid || !isUrlValid) {

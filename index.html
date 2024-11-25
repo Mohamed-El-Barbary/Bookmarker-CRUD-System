@@ -46,7 +46,7 @@
                   <span>Site Name</span>
                 </label>
                 <input
-                  oninput="validationSiteName()"
+                  oninput="validationInputs(this)"
                   type="text"
                   class="form-control"
                   id="bookmarkName"
@@ -59,7 +59,7 @@
                   <span>Site URL </span>
                 </label>
                 <input
-                  oninput="validationSiteUrl()"
+                  oninput="validationInputs(this)"
                   type="url"
                   class="form-control"
                   id="bookmarkUrl"
@@ -122,11 +122,17 @@
         <ul class="list-unstyled m-0">
           <li class="h6 fw-normal d-flex align-items-baseline">
             <i class="fa-regular fa-circle-right p-2 text-danger"></i>
-            <p>Site name must contain at least 3 characters</p>
+            <p>
+              Please enter a valid string. The input should start with at least
+              three alphanumeric characters (letters or digits).
+            </p>
           </li>
           <li class="h6 fw-normal d-flex align-items-baseline">
             <i class="fa-regular fa-circle-right p-2 text-danger"></i>
-            <p>Site name must contain at least 3 characters</p>
+            <p>
+              Please enter a valid URL or domain name. The input may optionally
+              start with "https://", ex. (e.g., .com, .org, .net).
+            </p>
           </li>
         </ul>
       </div>
