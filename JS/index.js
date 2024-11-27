@@ -34,7 +34,11 @@ function clearBookmarker() {
   bookmarkUrlInput.value = null;
 
   bookmarkNameInput.classList.remove("valid-input");
+  bookmarkNameInput.classList.remove("is-valid");
+  bookmarkNameInput.classList.remove("is-invalid");
   bookmarkUrlInput.classList.remove("valid-input");
+  bookmarkUrlInput.classList.remove("is-valid");
+  bookmarkUrlInput.classList.remove("is-invalid");
 }
 
 // Function To Display
@@ -72,7 +76,6 @@ function deleteBookmarker(index) {
   displayBookmarker();
 }
 
-
 // Validation Inputs
 
 function validationInputs(element) {
@@ -98,11 +101,10 @@ function validationInputs(element) {
   }
 }
 
-
 //^ Popup Validation
 
 var popup = document.getElementById("validationPopup");
-var closePopup = document.getElementById("closePopup"); // Input field for URL validation
+var closePopup = document.getElementById("closePopup");
 
 // Function to show the popup
 
@@ -118,6 +120,8 @@ function hidePopup() {
 // Close popup when clicking the close button
 closePopup.addEventListener("click", () => {
   hidePopup();
+
+  clearBookmarker();
 });
 
 document.getElementById("submitInfo").addEventListener("click", (e) => {
